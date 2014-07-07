@@ -1,0 +1,33 @@
+<div>
+  <a ng-click='archive(id)'>Archive</a>
+  <a ng-click='delete(id)'>Delete</a>
+</div>
+
+<div class='form-group'>
+  <input type='text' name='title' ng-model='note.title' ng-blur='updateNote()' placeholder='Title' />
+</div>
+
+<div ng-if='!isList'>
+  <textarea ng-model='note.content' ng-blur='updateNote()' placeholder='Note' />
+</div>
+
+<div ng-if='isList'>
+  <div ui-sortable='sortableOptions' ng-model='list.tasks'>
+    <div ng-repeat='task in list.tasks'>
+      <div class='well' ng-hide='task.hide'>
+        <i class='fa fa-bars'></i>
+        <input type='checkbox' ng-model='task.completed' ng-change='updateList()' />
+        <span ng-class='{completed: task.completed}'>
+          <input type='text' ng-model='task.content' ng-blur='updateList()' />
+        </span>
+        <a ng-click='task.hide = true; deleteTask(task.id)'>X</a>
+      </div>
+    </div>
+  </div>
+
+  <div class='form-group'>
+    <form ng-submit='createTask()'>
+      <input type='text' placeholder='List Item'  ng-model='note.new_task.content' ng-blur='createTask()' />
+    </form>
+  </div>
+</div>

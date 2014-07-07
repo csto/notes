@@ -1,0 +1,23 @@
+877-316-1619, 1800-391-3000
+== README
+
+MODELS
+
+User
+
+UserNote
+
+Element
+  
+
+Note
+  content
+
+Task
+  content
+  completed
+  
+
+TODO
+
+List New should create a list, then redirect to it

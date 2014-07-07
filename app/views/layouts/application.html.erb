@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html ng-app='Todos'>
+<head>
+  <title>Todo</title>
+  <%= stylesheet_link_tag    'application', media: 'all' %>
+  <%= javascript_include_tag 'application' %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+  <header class='navbar navbar-default'>
+    <div class='container-fluid'>
+      <div class='nav navbar-nav'>
+        <a href='/'>
+          <div id='logo'>Notes</div>
+        </a>
+      </div>
+      <div ng-show='show_search' ng-controller='NotesIndexCtrl'>
+        <form ng-submit='query(search)'>
+          <input type='text' placeholder='Search' ng-blur='query(search)' ng-model='search' />
+        </form>
+      </div>
+      <ul class='nav navbar-nav navbar-right'>
+        
+        <li id='search'>
+          <a ng-click='show_search = true'>
+            <i class='fa fa-search'></i>
+          </a>
+        </li>
+        
+        <li id='menu'>
+          <a href=''>
+            <i class='fa fa-bars'></i>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </header>
+  <div ng-view>
+  </div>
+</body>
+</html>

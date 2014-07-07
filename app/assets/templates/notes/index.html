@@ -1,0 +1,31 @@
+<a ng-href='/#/elements?utf8=✓&q%5Barchived_eq%5D=true'>Archived</a>
+
+<div class='nav navbar'>
+  <a ng-href='/#/notes/new'>
+    <i class='fa fa-file-text-o'></i>
+  </a>
+  <a ng-href='/#/notes/new?list=true'>
+    <i class='fa fa-list'></i>
+  </a>
+</div>
+
+
+<div ng-repeat='note in notes'>
+  <div>
+    <a ng-href='/#/notes/{{note.id}}'>
+      <div class='well'>
+        <h3>{{note.title}}</h3>
+        <div ng-if="!element.tasks[0]">
+          <p>{{note.content}}</p>
+        </div>
+        <div ng-if="element.tasks[0]">
+          <div ng-repeat='task in note.tasks'>
+            <div ng-if='$index < 5'>
+              <p>{{task.content}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </a>
+  </div>
+</div>
