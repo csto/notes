@@ -15,10 +15,10 @@
     <a ng-href='/#/notes/{{note.id}}'>
       <div class='well'>
         <h3>{{note.title}}</h3>
-        <div ng-if="!element.tasks[0]">
+        <div ng-if="!note.tasks[0]">
           <p>{{note.content}}</p>
         </div>
-        <div ng-if="element.tasks[0]">
+        <div ng-if="note.tasks[0]">
           <div ng-repeat='task in note.tasks'>
             <div ng-if='$index < 5'>
               <p>{{task.content}}</p>

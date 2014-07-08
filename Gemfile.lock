@@ -40,6 +40,8 @@ GEM
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
     angularjs-rails (1.2.19)
+    animate-rails (1.0.6)
+      rails
     annotate (2.6.5)
       activerecord (>= 2.3.0)
       rake (>= 0.8.7)
@@ -215,6 +217,7 @@ PLATFORMS
 
 DEPENDENCIES
   angularjs-rails
+  animate-rails
   annotate
   better_errors
   binding_of_caller

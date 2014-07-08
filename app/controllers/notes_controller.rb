@@ -28,6 +28,7 @@ class NotesController < ApplicationController
   
   def update
     @note = Note.find(params[:id])
+
     @note.update_attributes(permitted_params)
     head :ok
   end
@@ -48,7 +49,7 @@ class NotesController < ApplicationController
   private
   
   def permitted_params
-    params[:tasks_attributes] = params[:tasks]
-    params.require(:note).permit(:position, :kind, :title, :content, :color, tasks_attributes: [:id, :content, :completed, :position])
+    params[:note][:tasks_attributes] = params[:note][:tasks]
+    params.require(:note).permit(:position, :kind, :title, :content, :color, {tasks_attributes: [:id, :content, :completed, :position, :_destroy]})
   end
 end

@@ -8,5 +8,7 @@ Rails.application.routes.draw do
     end
   end
   
+  resources :tasks
+  
   root to: 'pages#index'
 end

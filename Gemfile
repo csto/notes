@@ -18,6 +18,7 @@ gem 'bootstrap-sass'
 gem 'angularjs-rails'
 gem 'ng-rails-csrf'
 gem 'font-awesome-rails'
+gem 'animate-rails'
 
 gem 'devise'
 gem 'ransack', github: "activerecord-hackery/ransack", branch: "rails-4.1"

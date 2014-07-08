@@ -11,16 +11,23 @@
   <textarea ng-model='note.content' ng-blur='updateNote()' placeholder='Note' />
 </div>
 
+{{onTask}}
+
 <div ng-if='isList'>
-  <div ui-sortable='sortableOptions' ng-model='list.tasks'>
-    <div ng-repeat='task in list.tasks'>
+  <div ui-sortable='sortableOptions' ng-model='note.tasks'>
+    <div ng-repeat='task in note.tasks | orderBy: ["completed", "position"]'>
       <div class='well' ng-hide='task.hide'>
-        <i class='fa fa-bars'></i>
-        <input type='checkbox' ng-model='task.completed' ng-change='updateList()' />
-        <span ng-class='{completed: task.completed}'>
-          <input type='text' ng-model='task.content' ng-blur='updateList()' />
+        <i class='fa fa-bars' style='float:left;'></i>
+        <form ng-submit='udpateNote()'>
+          <input type='checkbox' ng-model='task.completed' ng-change='updateNote()' />
+          <span ng-class='{completed: task.completed}'>
+            <input type='text' ng-model='task.content' ng-blur='updateNote();' ng-focus='task.focused = true;' />
+          </span>
+          
+        </form>
+        <span ng-show='task.focused'>
+          <a ng-click='task._destroy = true; task.hide = true; updateNote()'>X</a>
         </span>
-        <a ng-click='task.hide = true; deleteTask(task.id)'>X</a>
       </div>
     </div>
   </div>

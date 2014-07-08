@@ -47,7 +47,7 @@ app.controller 'NotesShowCtrl', ["$location", "$scope", "$routeParams", "Note", 
       
   $scope.sortableOptions = 
     stop: (e, ui) ->
-      for task, index in $scope.list.tasks
+      for task, index in $scope.note.tasks
         task.position = index
       $scope.updateNote()
 
@@ -61,7 +61,4 @@ app.controller 'NotesShowCtrl', ["$location", "$scope", "$routeParams", "Note", 
     $scope.note.tasks.push($scope.note.new_task)
     $scope.note.new_task = null
     $scope.updateNote()
-      
-  $scope.deleteTask = (id) ->
-    Note.delete {id: id}
 ]

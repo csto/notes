@@ -1,6 +1,11 @@
 @import 'compass';
 @import 'bootstrap';
 @import 'font-awesome';
+@import 'animate';
+
+*{
+  animation-name: fadeIn;
+}
 
 .completed{
   opacity:.5;

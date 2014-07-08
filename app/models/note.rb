@@ -9,6 +9,6 @@
 #
 
 class Note < ActiveRecord::Base
-  has_many :tasks, -> { order('position ASC, created_at ASC') }, dependent: :destroy
-  accepts_nested_attributes_for :tasks
+  has_many :tasks, -> { order('completed ASC, position ASC, created_at ASC') }, dependent: :destroy
+  accepts_nested_attributes_for :tasks, allow_destroy: true
 end
