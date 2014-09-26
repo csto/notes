@@ -1,31 +1,82 @@
-<a ng-href='/#/elements?utf8=✓&q%5Barchived_eq%5D=true'>Archived</a>
-
-<div class='nav navbar'>
-  <a ng-href='/#/notes/new'>
-    <i class='fa fa-file-text-o'></i>
-  </a>
-  <a ng-href='/#/notes/new?list=true'>
-    <i class='fa fa-list'></i>
-  </a>
-</div>
-
-
-<div ng-repeat='note in notes'>
-  <div>
-    <a ng-href='/#/notes/{{note.id}}'>
-      <div class='well'>
-        <h3>{{note.title}}</h3>
-        <div ng-if="!note.tasks[0]">
-          <p>{{note.content}}</p>
-        </div>
-        <div ng-if="note.tasks[0]">
-          <div ng-repeat='task in note.tasks'>
-            <div ng-if='$index < 5'>
-              <p>{{task.content}}</p>
-            </div>
-          </div>
-        </div>
-      </div>
+<div id='actions' class='well'>
+  <div class='row'>
+    <a ng-click="buildNote('Note')" class='col-md-3'>
+      <i class='fa fa-file-text-o'></i>
+    </a>
+    <a ng-click="buildNote('List')" class='col-md-3'>
+      <i class='fa fa-list'></i>
+    </a>
+    <a ng-click="buildNote('Note')" class='col-md-3'>
+      <i class='fa fa-microphone'></i>
+    </a>
+    <a ng-click="buildNote('Image')" class='col-md-3'>
+      <i class='fa fa-photo'></i>
     </a>
   </div>
 </div>
+
+<div ng-repeat='note in notes | filter:search | orderBy: ["position", "-created_at"]' class='note' ng-class='{active: $parent.current_note == note}' ng-swipe-right='swipe($event)'>
+  <div ng-click='setCurrentNote(note);' ng-fullscreen ng-class='{new: $parent.current_note == note && !$parent.current_note.id}' class='well'>
+
+    <div class='clearfix'>
+      <div ng-repeat='image in note.images' class='image-wrapper'>
+        <div class='image' back-img="{{ image.file_path }}" ng-click="open('lg', image)"></div>
+        <div class='remove-image' ng-click='removeImage(image)' ng-if='current_note == note'>
+          <i class='fa fa-times'></i>
+        </div>
+      </div>
+    </div>
+
+    <div class='form-group'>
+      <input type='text' name='title' ng-model='note.title' ng-blur='updateNote(note.id, note)' ng-if='current_note == note || note.title' placeholder='Title' class='form-control title' />
+    </div>
+
+    <div ng-if="note.kind == 'Note' && (current_note == note || note.content)">
+      <textarea ng-model='note.content' ng-blur='updateNote(note.id, note)' placeholder='Note' class='form-control content'></textarea>
+    </div>
+
+    <div ng-if="note.kind == 'List'">
+      <div ui-sortable='sortableOptions' ng-model='note.tasks'>
+        <div ng-repeat='task in note.tasks | orderBy: ["position"]' class='task' ng-class='{visible: current_note == note || $index < 5}'>
+          <div ng-class='{completed: task.completed}'>
+            <i class='fa fa-bars'></i>
+            <form ng-submit='udpateNote(note.id, note)'>
+              <span ng-show='current_note != note'>
+                <span ng-if='task.completed'>
+                  <i class='fa fa-check-square-o'></i>
+                </span>
+                <span ng-if='!task.completed'>
+                  <i class='fa fa-square-o'></i>
+                </span>
+              </span>
+              <span ng-show='current_note == note'>
+                <input type='checkbox' ng-model='task.completed' ng-change='updateNote(note.id, note)' class='checkbox' />
+              </span>
+              <input type='text' ng-model='task.content' ng-focus='$parent.$parent.$parent.current_task = task' class='form-control' />
+            </form>
+            <a ng-show='$parent.$parent.$parent.current_task == task' ng-click='task._destroy = true; task.hide = true; updateNote(note.id, note)' class='destroy'>
+              <i class='fa fa-times'></i>
+            </a>
+          </div>
+        </div>
+      </div>
+      
+      <div class='dots' ng-show="current_note != note && note.tasks.length > 5">
+        ...
+      </div>
+
+      <div class='form-group' ng-if='current_note == note'>
+        <form ng-submit='createTask(note.id)'>
+          <i class='fa fa-plus'></i>
+          <input type='text' placeholder='Add Item'  ng-model='new_task.content' ng-blur='createTask(note.id)' class='form-control' />
+        </form>
+      </div>              
+    </div>
+  </div>
+</div>
+
+<input class='select-file' type="file" ng-file-select="onFileSelect($files)" />
+  
+
+
+

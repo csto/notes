@@ -1,12 +1,348 @@
+$screen-sm:0px;
+
 @import 'compass';
 @import 'bootstrap';
 @import 'font-awesome';
 @import 'animate';
 
-*{
-  animation-name: fadeIn;
+body, html{
+  position: absolute;
+  height: 100%;
+  width:100%;
+  overflow: hidden;
 }
 
-.completed{
-  opacity:.5;
+.fill{
+  position:absolute;
+  top:0px;
+  left:0px;
+  right:0px;
+  bottom:0px;
+  overflow: auto;
 }
+
+.stop{
+  height: 100%;
+}
+
+a, a:visited, a:hover{
+  text-decoration:none;
+  cursor:pointer;
+}
+
+.image{
+  width:150px;
+  height:150px;
+  background-size:cover;
+  background-position:center;
+  float:left;
+}
+
+header.navbar{
+  background:#FFE07A;
+  @include border-radius(0px);
+  #logo{
+    color:white;
+    line-height:50px;
+    font-size:20px;
+  }  
+}
+
+.dropdown-menu{
+  display:block;
+  opacity:1;
+  @include transition(.2s ease-in);
+  @include transform-origin(100px 0% 0px);
+  @include scaleY(1);
+  &.ng-hide{
+    opacity:1;
+    @include scaleY(0);
+  }
+}
+
+.select-file{
+  opacity:0;
+  height:0px;
+}
+
+#search{
+  position:absolute;
+  top:0px;
+  left:100px;
+  right:200px;
+  .form-control{
+    background:none;
+    margin-top:10px;
+    @include border-radius(0px);
+  }
+}
+
+.container-fluid{
+  width:100%;
+}
+
+.padding-top{
+  top:50px;
+}
+
+#sidebar{
+  position:absolute;
+  top:0px;
+  left:100%;
+  width:300px;
+  height:100%;
+  background:gray;
+  overflow:scroll;
+  #sidebar-container{
+    margin-top:60px;
+  }
+}
+
+.slide{
+  @include translateX(0px);
+  @include transition(.5s ease-out);
+  &.active{
+    @include translateX(-300px);
+  }
+}
+
+@-webkit-keyframes shrinkRight {
+  0% {
+    opacity: 1;
+    max-height:100px;
+  }
+
+  100% {
+    opacity: 0;
+    max-height:0px;
+    -webkit-transform: translate3d(2000px, 0, 0);
+    transform: translate3d(2000px, 0, 0);
+  }
+}
+
+@keyframes shrinkRight {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    -webkit-transform: translate3d(2000px, 0, 0);
+    -ms-transform: translate3d(2000px, 0, 0);
+    transform: translate3d(2000px, 0, 0);
+  }
+}
+
+.note{
+  .well{
+    @include transition(.4s);
+    left:15px;
+    right:15px;
+    bottom:0px;
+  }
+  &.active{
+    .well{
+      position:absolute;
+      top:0px;
+      overflow:auto;
+      z-index:99;
+      @include translateY(0px);
+//      @include translateX(15px);
+//      &.expand{
+//        @include translateX(-15px);
+//      }
+    }
+  }
+  &.ng-enter{
+    @include animation(fadeIn .4s);
+  }
+  &.ng-leave{
+    @include animation(shrinkRight .4s ease-out);   
+  }
+  .title{
+    font-weight:bold;
+  }
+  .form-control{
+    background:none;
+    border:0;
+    box-shadow:none;
+    padding:6px 0px;
+  }
+  .task{
+    overflow:hidden;
+    max-height:0px;
+    position:relative;
+    &.visible{
+      min-height:40px;
+    }
+    .completed{
+      color:#C7C7C7 !important;
+    }
+    .fa-bars{
+      position:absolute;
+      left:0px;
+      line-height:34px;
+      width:0px;
+      text-align:center;
+      opacity:0;
+    }
+    .checkbox, .fa-square-o, .fa-check-square-o{
+      position:absolute;
+      left:0px;
+      @include translateX(0px);
+      @include transition(.4s);
+    }
+    input[type='text']{
+      margin-left:34px;
+    }
+    .destroy{
+      position:absolute;
+      right:0px;
+      top:0px;
+      width:34px;
+      line-height:34px;
+      @include transition(0s);
+    }
+  }
+  &.active{
+    .well{
+      &.new{
+        position:absolute;
+        top:400px;
+        bottom:0px;
+        left:0px;
+        right:0px;
+      }
+    }
+    .task{
+      @include transition(.4s ease-in);
+      &.no-animate{
+        @include transition(0s);
+      }
+      &.ng-enter{
+        @include animation(fadeIn .4s);
+      }
+      &.ng-leave{
+        @include animation(shrinkRight .4s ease-out);   
+      }
+      .fa-bars{
+        opacity:1;
+        width:34px;
+      }
+      input[type='text']{
+        margin-left:68px;
+      }
+      .checkbox, .fa-square-o, .fa-check-square-o{
+        position:absolute;
+        @include translateX(34px);
+      }
+    }  
+  } 
+}
+
+.well{
+  min-height:0px;
+}
+
+#notes-wrapper{
+  &.current-note{
+    overflow:hidden;
+  }
+}
+
+#actions{
+  overflow:hidden;
+  &.ng-hide-remove{
+    @include animation(grow 1s);
+  }
+  &.ng-hide-add{
+    -webkit-animation:shrink .3s ease-in;
+  }
+  .col-md-3{
+    text-align:center;
+  }
+  .fa{
+    font-size:28px;
+  }
+}
+
+body.currentNote{
+  overflow:hidden;
+}
+
+.no-animate{
+  .note.active .task{
+    @include transition(0s);
+  }
+}
+
+.modal-dialog{
+  position:absolute;
+  top:0px;
+  left:0px;
+  right:0px;
+  bottom:0px;
+  width:auto;
+  margin:0px;
+  .modal-body{
+    padding-bottom:50px;
+    img{
+      max-width:100%;
+    }
+  }
+}
+
+.flash-messages{
+  position:absolute;
+  bottom:20px;
+  left:20px;
+  right:20px;
+}
+
+#flash{
+  position:absolute;
+  z-index:99999;
+  bottom:0px;
+  width:100%;
+  .alert{
+    margin:0px 15px 15px 15px;
+    @include border-radius(50px);
+    &.ng-enter{
+      -webkit-animation:.3s fadeInDown ease-out;
+      -moz-animation:.3s bounceOutDown ease-out;
+      -o-animation:.3s bounceOutDown ease-out;
+      animation:.3s fadeInDown ease-out;
+    }
+    &.ng-leave{
+      -webkit-animation:1s bounceOutDown ease-out;
+      -moz-animation:1s bounceOutDown ease-out;
+      -o-animation:1s bounceOutDown ease-out;
+      animation:1s bounceOutDown ease-out;
+    }
+  }
+}
+
+
+@-webkit-keyframes fadeOut{
+  0% {opacity:1;};
+  100% {opacity:0;};
+}
+
+@-webkit-keyframes grow{
+  0% {opacity:0;};
+  100% {opacity:1;};
+}
+
+@-webkit-keyframes shrink {
+  from {
+    max-height: 80px;
+    opacity: 1;
+  }
+  to {
+    @include scaleY(0);
+    opacity:0;
+    max-height:0px;
+  }
+}
+
+

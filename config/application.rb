@@ -20,5 +20,8 @@ module Todo
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
     config.assets.paths << "#{Rails.root}/app/assets/templates"
+    
+    # Devise email host
+    Rails.application.routes.default_url_options[:host] = 'localhost:3000'
   end
 end

@@ -1,0 +1,78 @@
+<div ng-controller='SessionsCtrl' class='container-fluid'>
+  Large logo
+  
+  <a class='btn btn-primary'>Facebook</a>
+  <a class='btn btn-primary'>Google</a>
+
+  
+  <a ng-click='register()'>Register</a>
+  <a ng-click='login()'>Login</a>
+  <a ng-click='current()'>Current</a>
+  <a ng-click='logout()'>Logout</a>
+  <a ng-href='/#/notes'>Notes</a>
+  
+  
+  <div class='pane' ng-show='current_action == "sign-in"'>
+    <h1>Sign in</h1>
+    <form roles='form' ng-submit='login()'>
+      <div class='form-group'>
+        <label for='email'>Email</label>
+        <input type='email' id='email' class='form-control' placeholder='Enter email' ng-model='email'>
+      </div>
+  
+      <div class='form-group'>
+        <label for='password'>Password</label>
+        <input type='password' id='password' class='form-control' placeholder='Password' ng-model='password'>
+      </div>
+      <button class='btn btn-primary'>Sign in</button>
+    </form>
+  </div>
+  
+  <div class='pane' ng-show='current_action == "register"'>
+    <h1>Register</h1>
+    <form roles='form' ng-submit='register()'>
+      <div class='form-group'>
+        <label for='email'>Email</label>
+        <input type='email' id='email' class='form-control' placeholder='Enter email' ng-model='email'>
+      </div>
+  
+      <div class='form-group'>
+        <label for='password'>Password</label>
+        <input type='password' id='password' class='form-control' placeholder='Password' ng-model='password'>
+      </div>
+      <button class='btn btn-primary'>Create account</button>
+    </form>
+    
+  </div>
+  
+  <div class='pane' ng-show='current_action == "forgot"'>
+    <h1>Forgot your password?</h1>
+    <div ng-hide='messageSent'>
+      <div class='form-group'>
+        <input type='email' ng-model='email' placeholder='Email' class='form-control'>
+      </div>
+      <a ng-click='resetPassword()' class='btn btn-primary'>Send password reset instructions</a>
+    </div>
+    <div ng-show='messageSent'>
+      <p>Message has been sent.</p>
+    </div>
+  </div>
+  
+  <div class='pane' ng-show='current_action == "reset"'>
+    <h1>Reset your password</h1>
+    <form ng-submit='updatePassword()'>
+      <input type='password' ng-model='password' placeholder='Password' autofocus=true class='form-control'>
+      <button class='btn btn-primary'>Reset password</button>
+    </form>
+  </div>
+  
+  <div ng-show='current_action != "register" && current_action != "reset"'>
+    Don't have an account? <a ng-click='current_action = "register"'>Create one here.</a>
+  </div>
+  <div ng-show='current_action != "sign-in" && current_action != "reset"'>
+    Already have an account? <a ng-click='current_action = "sign-in"'>Sign in here.</a>
+  </div>
+  <div ng-show='current_action != "forgot" && current_action != "reset"'>
+    Forgot your password? <a ng-click='current_action = "forgot"'>Reset it here.</a>
+  </div>
+</div>

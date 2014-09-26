@@ -11,7 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140702021307) do
+ActiveRecord::Schema.define(version: 20140926015600) do
+
+  create_table "images", force: true do |t|
+    t.integer  "note_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "file_file_name"
+    t.string   "file_content_type"
+    t.integer  "file_file_size"
+    t.datetime "file_updated_at"
+  end
+
+  add_index "images", ["note_id"], name: "index_images_on_note_id"
 
   create_table "notes", force: true do |t|
     t.integer  "position",   default: 0
@@ -26,6 +38,15 @@ ActiveRecord::Schema.define(version: 20140702021307) do
 
   add_index "notes", ["title", "content"], name: "index_notes_on_title_and_content"
   add_index "notes", ["title"], name: "index_notes_on_title"
+
+  create_table "share_tokens", force: true do |t|
+    t.integer  "note_id"
+    t.string   "token"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "share_tokens", ["note_id"], name: "index_share_tokens_on_note_id"
 
   create_table "tasks", force: true do |t|
     t.integer  "note_id"

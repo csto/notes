@@ -1,0 +1,82 @@
+<div ng-controller='NotesCtrl' ng-click='closeSidebar($event)'>
+  <header class='navbar navbar-fixed-top'>
+    <div class='container-fluid'>
+      <div class='nav navbar-nav'>
+        <a ng-href='/#/notes' ng-click='query()'>
+          <div id='logo'>Notes</div>
+        </a>
+      </div>
+      <form id='search' ng-submit='query(search)' ng-show='searchFocus'>
+        <input type='text' class='form-control' placeholder='Search' ng-model='search.$' focus-me='searchFocus' />
+      </form>
+      <ul class='nav navbar-nav navbar-right'>
+        <li>
+          <a ng-click='searchFocus = true'>
+            <i class='fa fa-search'></i>
+          </a>  
+        </li>
+        <li id='menu' ng-click='openMenu = !openMenu'>
+          <a>
+            <i class='fa fa-bars'></i>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </header>
+
+  <header ng-show='current_note' id='note-header' class='navbar navbar-fixed-top'>
+    <div class='container-fluid'>
+      <div class='nav navbar-nav'>
+        <a ng-click='query(false)'>
+          <i class='fa fa-times'></i>
+        </a>
+      </div>
+      <ul class='nav navbar-nav navbar-right'>
+        <li ng-click='selectFile()'>
+          <a>
+            <i class='fa fa-camera'></i>
+          </a> 
+        </li>
+        <li id='note-menu' class='dropdown' ng-click='dropdown = !dropdown'>
+          <a>
+            <i class='fa fa-sort-desc'></i>
+          </a>
+          <ul class='dropdown-menu' ng-show='dropdown'>
+            <li ng-click='share()'>Share</li>
+            <li ng-click='dropdown = false; archive()'>Archive</li>
+            <li ng-click='dropdown = false; delete()'>Delete</li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </header>
+
+  <div id='notes-wrapper' class='container-fluid fill padding-top slide' ng-class='{active: openMenu, "current-note": current_note}'>   
+    <div ng-view></div>  
+  </div>
+  
+  <div id='sidebar' class='slide' ng-class='{active: openMenu}'>
+    <div id='sidebar-container'>
+      <ul class='list-group'>
+        <li class='list-group-item'>
+          <a ng-href='/#/account' ng-click='openMenu = false'>Account</a>
+        </li>
+        <li class='list-group-item'>
+          <a ng-href='/#/notes' ng-click='openMenu = false; query(false)'>Notes</a>
+        </li>
+        <li class='list-group-item'>
+          <a ng-href='/#/notes' ng-click='openMenu = false; query(true)'>Archived</a>
+        </li>
+        <li class='list-group-item'>
+          <a>Terms</a>
+        </li>
+        <li class='list-group-item' ng-controller='SessionsCtrl'>
+          <a ng-click='logout()'>Logout</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+    

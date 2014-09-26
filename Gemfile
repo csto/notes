@@ -1,17 +1,16 @@
 source 'https://rubygems.org'
 
 
-gem 'rails', '4.1.2'
+gem 'rails'
 gem 'sqlite3'
 
 gem 'thin'
-gem 'sass-rails'
+gem 'sass-rails', '4.0.3'
 gem 'uglifier'
 gem 'coffee-rails'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
-# gem 'turbolinks'
-gem 'jbuilder', '~> 2.0'
+gem 'jbuilder'
 
 gem 'compass-rails'
 gem 'bootstrap-sass'
@@ -22,7 +21,9 @@ gem 'animate-rails'
 
 gem 'devise'
 gem 'ransack', github: "activerecord-hackery/ransack", branch: "rails-4.1"
-gem 'carrierwave'
+gem 'paperclip'
+gem 'aws-sdk'
+gem 'annotate'
 
 group :development do
   gem 'spring'
@@ -38,6 +39,6 @@ group :development, :test do
 end
 
 group :doc do
-  gem 'sdoc', '~> 0.4.0'
+  gem 'sdoc'
 end
 

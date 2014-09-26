@@ -22,4 +22,8 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
+         
+  has_many :user_notes, dependent: :destroy
+  has_many :notes, through: :user_notes, dependent: :destroy
+         
 end

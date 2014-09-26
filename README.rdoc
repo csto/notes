@@ -1,23 +1,40 @@
-877-316-1619, 1800-391-3000
-== README
-
-MODELS
-
-User
-
-UserNote
-
-Element
-  
-
-Note
-  content
-
-Task
-  content
-  completed
-  
-
 TODO
 
-List New should create a list, then redirect to it
+User Image and name
+Sharing
+  ShareToken
+    note_id
+    token
+    
+  sharing with non-user creates ShareToken
+  when user goes to site, token is stored in session
+  when account is created, share token is destroyed
+  
+  Modal
+    Enter email to share with
+  if user
+    
+  else
+    sends email
+    email takes you to account creation page? maybe app download
+    going to page sets session variable for user_note_id
+    when account is created, it associates user_note
+    
+  
+
+Rails authorization
+Switch to ng-sortable
+
+List
+  slide to archive
+  reorder
+  
+Show
+  share
+    modal with email
+    sends email
+      creates user_note when accepted via email
+
+Other
+  undo
+  photos to s3

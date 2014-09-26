@@ -14,3 +14,4 @@ app.controller 'TasksCtrl', ["$scope", "Task", "$routeParams", ($scope, Task, $r
     Task.delete {id: id}
 
 ]
+
