@@ -4,4 +4,15 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   
   respond_to :html, :json
+  
+  before_filter :set_token
+  
+  private
+  
+  def set_token
+    puts "PARAMS: #{params}"
+    if params[:user] && params[:user][:token]
+      cookies[:token] = params[:user][:token]
+    end
+  end
 end

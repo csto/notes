@@ -1,9 +1,12 @@
-$screen-sm:0px;
-
 @import 'compass';
 @import 'bootstrap';
 @import 'font-awesome';
 @import 'animate';
+
+*{
+  -webkit-backface-visibility: hidden;
+//  -webkit-perspective: 1000;
+}
 
 body, html{
   position: absolute;
@@ -25,18 +28,48 @@ body, html{
   height: 100%;
 }
 
+.navbar-nav{
+  float:left;
+  margin:0px;
+}
+
+.navbar-right {
+  float: right !important;
+}
+
+.navbar-nav.navbar-right:last-child {
+  margin-right: -15px;
+}
+
+.navbar-nav > li > a {
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+.nav li{
+  float:left;
+}
+
 a, a:visited, a:hover{
   text-decoration:none;
   cursor:pointer;
 }
 
-.image{
-  width:150px;
-  height:150px;
-  background-size:cover;
-  background-position:center;
-  float:left;
+.image-wrapper{
+  padding:0px;
+  .image{
+    max-width:100%;
+    padding-top:100%;
+    background-size:cover;
+    background-position:center;
+  }
+  .remove-image{
+    position:absolute;
+    top:0px;
+    right:0px;
+  }
 }
+
 
 header.navbar{
   background:#FFE07A;
@@ -100,7 +133,7 @@ header.navbar{
 
 .slide{
   @include translateX(0px);
-  @include transition(.5s ease-out);
+  @include transition(.2s ease-out);
   &.active{
     @include translateX(-300px);
   }
@@ -208,10 +241,10 @@ header.navbar{
     .well{
       &.new{
         position:absolute;
-        top:400px;
+        top:800px;
         bottom:0px;
-        left:0px;
-        right:0px;
+        left:15px;
+        right:15px;
       }
     }
     .task{
@@ -266,10 +299,6 @@ header.navbar{
   }
 }
 
-body.currentNote{
-  overflow:hidden;
-}
-
 .no-animate{
   .note.active .task{
     @include transition(0s);
@@ -319,6 +348,33 @@ body.currentNote{
       -o-animation:1s bounceOutDown ease-out;
       animation:1s bounceOutDown ease-out;
     }
+  }
+}
+
+.modal{
+  position:absolute;
+  top:0px;
+  left:0px;
+  right:0px;
+  bottom:0px;
+  background:black;
+  .modal-contents{
+    img{
+      max-width:100%;
+      max-height:100%;
+      display:block;
+      margin:auto;
+      position:absolute;
+      top:0px;
+      left:0px;
+      right:0px;
+      bottom:0px;
+    }
+  }
+  .modal-close{
+    position:absolute;
+    top:0px;
+    right:0px;
   }
 }
 

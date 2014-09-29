@@ -1,8 +1,8 @@
 class UserNotesController < ApplicationController
   
-  def new
+  def create
+    @note = Note.find(params[:note_id])
     @user = User.find_by_email(params[:email])
-    @note = Note.find(params[:id])
     if @user
       @user_note = @user.user_notes.build
       @user_note.note = @note
@@ -11,8 +11,10 @@ class UserNotesController < ApplicationController
       token = SecureRandom.urlsafe_base64
       @share_token = @note.share_tokens.build
       @share_token.token = token
-      # UserMailer.share_note_email(params[:email], token).deliver
+      @share_token.save
+      UserMailer.share_note_email(current_user, params[:email], token).deliver
     end
+    head :ok
   end
   
 end

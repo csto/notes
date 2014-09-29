@@ -24,7 +24,7 @@
     </div>
   </header>
 
-  <header ng-show='current_note' id='note-header' class='navbar navbar-fixed-top'>
+  <header ng-show='$root.currentNote' id='note-header' class='navbar navbar-fixed-top'>
     <div class='container-fluid'>
       <div class='nav navbar-nav'>
         <a ng-click='query(false)'>
@@ -51,7 +51,7 @@
     </div>
   </header>
 
-  <div id='notes-wrapper' class='container-fluid fill padding-top slide' ng-class='{active: openMenu, "current-note": current_note}'>   
+  <div id='notes-wrapper' class='container-fluid fill padding-top slide' ng-class='{active: openMenu, "current-note": $root.currentNote}'>   
     <div ng-view></div>  
   </div>
   
@@ -76,7 +76,16 @@
       </ul>
     </div>
   </div>
+  
+  <div class='modal' show-close>
+    <div class='modal-contents'></div>
+    <div class='modal-close' ng-click='closeModal()'>
+      <i class='fa fa-times'></i>
+    </div>
+  </div>
+  
 </div>
+
 
 
     

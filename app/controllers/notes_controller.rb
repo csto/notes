@@ -38,7 +38,7 @@ class NotesController < ApplicationController
   
   def archive
     @note = Note.find(params[:id])
-    @note.archived = true
+    @note.archived = !@note.archived
     @note.save
     head :ok
   end

@@ -15,8 +15,9 @@
 
 class Note < ActiveRecord::Base
   
-  has_many :user_notes
+  has_many :user_notes, dependent: :destroy
   has_many :users, through: :user_notes
+  has_many :share_tokens, dependent: :destroy
   
   has_many :tasks, -> { order('position ASC, created_at ASC') }, dependent: :destroy
   has_many :images, -> { order('created_at ASC') }, dependent: :destroy

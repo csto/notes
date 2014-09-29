@@ -25,5 +25,9 @@ class User < ActiveRecord::Base
          
   has_many :user_notes, dependent: :destroy
   has_many :notes, through: :user_notes, dependent: :destroy
-         
+  
+  def name_or_email
+    email
+  end
+  
 end

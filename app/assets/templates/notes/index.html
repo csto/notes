@@ -15,33 +15,36 @@
   </div>
 </div>
 
-<div ng-repeat='note in notes | filter:search | orderBy: ["position", "-created_at"]' class='note' ng-class='{active: $parent.current_note == note}' ng-swipe-right='swipe($event)'>
-  <div ng-click='setCurrentNote(note);' ng-fullscreen ng-class='{new: $parent.current_note == note && !$parent.current_note.id}' class='well'>
+<div ng-repeat='note in notes | filter:search | orderBy: ["position", "-created_at"]' class='note' ng-class='{active: $parent.currentNote == note}' ng-swipe-right='swipe($event)'>
+  <div ng-click='setCurrentNote(note);' ng-fullscreen ng-class='{new: $root.currentNote == note && !$root.currentNote.id}' class='well' resize>
 
     <div class='clearfix'>
       <div ng-repeat='image in note.images' class='image-wrapper'>
-        <div class='image' back-img="{{ image.file_path }}" ng-click="open('lg', image)"></div>
-        <div class='remove-image' ng-click='removeImage(image)' ng-if='current_note == note'>
-          <i class='fa fa-times'></i>
+        <div class='image-wrapper col-xs-4 col-sm-3 col-md-2'>
+          <div class='image' back-img="{{ image.file_path }}" ng-click="openImage(image)"></div>
+          <div class='remove-image' ng-click='removeImage(image)' ng-if='currentNote == note'>
+            <i class='fa fa-times'></i>
+          </div>
         </div>
+        
       </div>
     </div>
 
     <div class='form-group'>
-      <input type='text' name='title' ng-model='note.title' ng-blur='updateNote(note.id, note)' ng-if='current_note == note || note.title' placeholder='Title' class='form-control title' />
+      <input type='text' name='title' ng-model='note.title' ng-blur='updateNote(note.id, note)' ng-if='currentNote == note || note.title' placeholder='Title' class='form-control title' />
     </div>
 
-    <div ng-if="note.kind == 'Note' && (current_note == note || note.content)">
+    <div ng-if="note.kind == 'Note' && (currentNote == note || note.content)">
       <textarea ng-model='note.content' ng-blur='updateNote(note.id, note)' placeholder='Note' class='form-control content'></textarea>
     </div>
 
     <div ng-if="note.kind == 'List'">
       <div ui-sortable='sortableOptions' ng-model='note.tasks'>
-        <div ng-repeat='task in note.tasks | orderBy: ["position"]' class='task' ng-class='{visible: current_note == note || $index < 5}'>
+        <div ng-repeat='task in note.tasks | orderBy: ["position"]' class='task' ng-class='{visible: currentNote == note || $index < 5}'>
           <div ng-class='{completed: task.completed}'>
             <i class='fa fa-bars'></i>
             <form ng-submit='udpateNote(note.id, note)'>
-              <span ng-show='current_note != note'>
+              <span ng-show='currentNote != note'>
                 <span ng-if='task.completed'>
                   <i class='fa fa-check-square-o'></i>
                 </span>
@@ -49,7 +52,7 @@
                   <i class='fa fa-square-o'></i>
                 </span>
               </span>
-              <span ng-show='current_note == note'>
+              <span ng-show='currentNote == note'>
                 <input type='checkbox' ng-model='task.completed' ng-change='updateNote(note.id, note)' class='checkbox' />
               </span>
               <input type='text' ng-model='task.content' ng-focus='$parent.$parent.$parent.current_task = task' class='form-control' />
@@ -61,11 +64,11 @@
         </div>
       </div>
       
-      <div class='dots' ng-show="current_note != note && note.tasks.length > 5">
+      <div class='dots' ng-show="currentNote != note && note.tasks.length > 5">
         ...
       </div>
 
-      <div class='form-group' ng-if='current_note == note'>
+      <div class='form-group' ng-if='currentNote == note'>
         <form ng-submit='createTask(note.id)'>
           <i class='fa fa-plus'></i>
           <input type='text' placeholder='Add Item'  ng-model='new_task.content' ng-blur='createTask(note.id)' class='form-control' />
@@ -77,6 +80,7 @@
 
 <input class='select-file' type="file" ng-file-select="onFileSelect($files)" />
   
+
 
 
 

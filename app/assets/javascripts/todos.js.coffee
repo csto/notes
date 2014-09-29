@@ -18,15 +18,23 @@ app.config ['$routeProvider', ($routeProvider) ->
     )
 ]
 
-mainCtrl = app.controller 'MainCtrl', ['$scope', 'Auth', 'Flash', '$location', ($scope, Auth, Flash, $location) ->
+mainCtrl = app.controller 'MainCtrl', ['$scope', 'Auth', 'Flash', 'Notes', '$location', ($scope, Auth, Flash, Notes, $location) ->
   console.log 'MainCtrl loaded'
-  
-  $scope.loggedInLayout = ->
-    return $location.path() != '/' ? true : false
 
-  $scope.$on 'devise:unauthorized', (event, xhr, deferred) ->
-    console.log 'devise thing'
-    deferred.resolve(error)
+  # $scope.$on 'devise:unauthorized', (event, xhr, deferred) ->
+  #   console.log 'devise thing'
+  #   deferred.resolve(error)
+    
+  $scope.currentUser = null
+  
+  $scope.$watch(
+    ->
+      Auth._currentUser
+    , ->
+      $scope.currentUser = Auth._currentUser
+  )
+  
+  
 
 ]
 

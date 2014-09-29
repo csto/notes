@@ -59,6 +59,7 @@ app.controller 'SessionsCtrl', ['$rootScope', '$scope', '$location', '$http', 'A
       email: $scope.email
       password: $scope.password
       password_confirmation: $scope.password
+      token: 'cz96N_8QIJbN06pdq5TSaQ'
 
     if $scope.email && $scope.password
       Auth.register(credentials).then((user) ->
@@ -101,11 +102,7 @@ app.controller 'SessionsCtrl', ['$rootScope', '$scope', '$location', '$http', 'A
     # Registration failed...
     $scope.$on "devise:new-registration", (event, user) ->
       console.log event
-      
-  $scope.current = ->
-    Auth.currentUser().then((user) ->
-        console.log user
-      )
+
       
   $scope.logout = ->
     Auth.logout().then((oldUser) ->

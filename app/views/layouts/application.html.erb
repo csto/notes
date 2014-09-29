@@ -8,13 +8,13 @@
   <meta content="yes" name="apple-mobile-web-app-capable">
   <%= csrf_meta_tags %>
 </head>
-<body ng-controller='MainCtrl' ng-class='{currentNote: current_note}'>
+<body ng-controller='MainCtrl'>
   <div id='flash' ng-controller='FlashCtrl'>
     <div class='alert alert-success' ng-repeat='message in flash_messages'>
       {{ message }}
     </div>
   </div>
-  <div ng-if='!loggedInLayout()' ng-include="'assets/layouts/logged_out.html'" class='fill'></div>
-  <div ng-if='loggedInLayout()' ng-include="'assets/layouts/logged_in.html'"></div>
+  <div ng-if='!currentUser' ng-include="'assets/layouts/logged_out.html'" class='fill'></div>
+  <div ng-if='currentUser' ng-include="'assets/layouts/logged_in.html'"></div>
 </body>
 </html>
